@@ -10,8 +10,8 @@ SoftwareSerial mySerial(2, 3);
 #define KEY_CS2 0x49
 #define KEY_DS2 0x4B
 #define KEY_FS2 0x4E
-#define KEY_GS2 0x51
-#define KEY_AS2 0x53
+#define KEY_GS2 0x50
+#define KEY_AS2 0x52
 
 char slavePins[] = { 4, 5, 6, 7, 8, 9, 10, 11 };
 
