@@ -11,7 +11,7 @@ var client = new osc.Client('127.0.0.1', 8000);
 function sendReq(obj) {
   var message = new osc.Message('/out');
   for (var key in obj) {
-    message.append(obj[key]);
+    message.append(obj[key] || '');
   }
   client.send(message);
 }
@@ -19,7 +19,7 @@ function sendReq(obj) {
 function sendRes(obj) {
   var message = new osc.Message('/in');
   for (var key in obj) {
-    message.append(obj[key]);
+    message.append(obj[key] || '');
   }
   client.send(message);
 }
