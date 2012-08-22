@@ -4,6 +4,7 @@
   "description": "Proxy sever for The Sound of The Internet.",
   "main": "app.js",
   "dependencies": {
+	"colors": "*",
     "connect": "~2.4.3",
     "http-proxy": "~0.8.2",
 	"node-osc" : "*"
