@@ -4,7 +4,7 @@ var http = require('http'),
     connect = require('connect'),
     osc = require('node-osc'),
     url = require('url'),
-    sys = require('sys');
+    util = require('util');
 
 // create osc client
 var client = new osc.Client('127.0.0.1', 8000);
@@ -37,10 +37,10 @@ app
         };
     sendReq(options);
 
-    sys.puts(("Sent request for " + parsed.hostname + ':' + options.path + '.').blue);
+    util.puts(("Sent request for " + parsed.hostname + ':' + options.path + '.').blue);
 
     http.request(options, function(res) {            
-      sys.puts(("Got response for " + parsed.hostname + ':' + options.path + '.').yellow);
+      util.puts(("Got response for " + parsed.hostname + ':' + options.path + '.').yellow);
       for (var key in res.headers) {
         proxyRes.setHeader(key, res.headers[key]);
       }
@@ -55,3 +55,4 @@ app
   });
 
 http.createServer(app).listen(80);
+util.puts('Server start at port 80.');
