@@ -17,10 +17,10 @@ SoftwareSerial mySerial(2, 3);
 #define KEY_D2  0x4A
 #define KEY_E2  0x4C
 #define KEY_F2  0x4D
-#define KEY_G2  0x50
-#define KEY_A2  0x52
-#define KEY_B2  0x54
-#define KEY_C3  0x55
+#define KEY_G2  0x4F
+#define KEY_A2  0x51
+#define KEY_B2  0x53
+#define KEY_C3  0x54
 
 // スレーブ側の音階
 #define KEY_FS1 0x42
@@ -29,8 +29,8 @@ SoftwareSerial mySerial(2, 3);
 #define KEY_CS2 0x49
 #define KEY_DS2 0x4B
 #define KEY_FS2 0x4E
-#define KEY_GS2 0x51
-#define KEY_AS2 0x53
+#define KEY_GS2 0x50
+#define KEY_AS2 0x52
 
 
 char masterPins[] = { 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, A0, A1 };
