@@ -28,8 +28,8 @@ app
           path: cliReq.url,
           method: 'GET'
         };
-    util.puts(('/in, ' + options.host + ', ' + options.path).red);
-    sendToOSC('/in', options.host, options.path);
+    util.puts(('/out, ' + options.host + ', ' + options.path).red);
+    sendToOSC('/out', options.host, options.path);
     util.puts(("Sent request for " + options.host + ':' + options.path + '.').blue);
 
     var req = http.request(options, function(res) {            
@@ -38,8 +38,8 @@ app
         proxyRes.setHeader(key, res.headers[key]);
       }
       res.on('data', function(chunk) {
-        util.puts(('/out, ' + res.statusCode + ', ' + res.headers['content-type'] + ', ' + res.headers['content-length']).red);
-        sendToOSC('/out', res.statusCode, res.headers['content-type'], res.headers['content-length']);
+        util.puts(('/in, ' + res.statusCode + ', ' + res.headers['content-type'] + ', ' + res.headers['content-length']).red);
+        sendToOSC('/in', res.statusCode, res.headers['content-type'], res.headers['content-length']);
         proxyRes.write(chunk);
       });
       res.on('end', function() {      
