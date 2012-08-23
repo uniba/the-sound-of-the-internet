@@ -102,7 +102,7 @@ class DNSServer
   def run
     Socket.udp_server_loop(@port) do |data, src|
       r = DNSRequest.new(self, data)
-      src.reply r.response('127.0.0.1')
+      src.reply r.response('192.168.2.1')
     end
   end
 end
