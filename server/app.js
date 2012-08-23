@@ -31,28 +31,34 @@ app
   .use(function(cliReq, proxyRes, next) {
     var parsed = url.parse('http://' + cliReq.headers.host),
         options = {
-          host: cliReq.hostname,
+          host: cliReq.headers.host,
           port: 80,
           path: cliReq.url,
           method: 'GET'
         };
-    sendReq(options);
+    //sendReq(options);
 
-    util.puts(("Sent request for " + parsed.hostname + ':' + options.path + '.').blue);
+    util.puts(("Sent request for " + options.host + ':' + options.path + '.').blue);
 
-    http.request(options, function(res) {            
-      util.puts(("Got response for " + parsed.hostname + ':' + options.path + '.').yellow);
+    var req = http.request(options, function(res) {            
+      util.puts(("Got response for " + options.host + ':' + options.path + '.').yellow);
       for (var key in res.headers) {
         proxyRes.setHeader(key, res.headers[key]);
       }
       res.on('data', function(chunk) {
-        sendRes(res.headers);
+        //sendRes(res.headers);
         proxyRes.write(chunk);
       });
       res.on('end', function() {      
         proxyRes.end();
       });
-    }).end();
+    });
+    
+    req.on('error', function(e) {
+      console.log('error');
+    });
+
+    req.end();
   });
 
 http.createServer(app).listen(80);
