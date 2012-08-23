@@ -10,20 +10,12 @@ var http = require('http'),
 // create osc client
 var client = new osc.Client('127.0.0.1', 8000);
 
-function sendReq(obj) {
-  var message = new osc.Message('/out');
-  for (var key in obj) {
-    message.append(obj[key] || '');
+function sendToOSC() {
+  var m = new osc.Message(arguments[0]);
+  for (var i = 1, len = arguments.length; i < len;i ++) {
+    m.append(arguments[i] || '');
   }
-  client.send(message);
-}
-
-function sendRes(obj) {
-  var message = new osc.Message('/in');
-  for (var key in obj) {
-    message.append(obj[key] || '');
-  }
-  client.send(message);
+  client.send(m);
 }
 
 var app = connect();
@@ -31,13 +23,15 @@ app
   .use(function(cliReq, proxyRes, next) {
     var parsed = url.parse('http://' + cliReq.headers.host),
         options = {
-          host: cliReq.headers.host,
-          port: 80,
+          //host: cliReq.headers.host,
+          //port: 80,
+          host: 'localhost',
+          port: 3000,
           path: cliReq.url,
           method: 'GET'
         };
-    //sendReq(options);
-
+    util.puts(('/in, ' + options.host + ', ' + options.path).red);
+    sendToOSC('/in', options.host, options.path);
     util.puts(("Sent request for " + options.host + ':' + options.path + '.').blue);
 
     var req = http.request(options, function(res) {            
@@ -46,7 +40,8 @@ app
         proxyRes.setHeader(key, res.headers[key]);
       }
       res.on('data', function(chunk) {
-        //sendRes(res.headers);
+        util.puts(('/out, ' + res.statusCode + ', ' + res.headers['content-type'] + ', ' + res.headers['content-length']).red);
+        sendToOSC('/out', res.statusCode, res.headers['content-type'], res.headers['content-length']);
         proxyRes.write(chunk);
       });
       res.on('end', function() {      
