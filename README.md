@@ -28,3 +28,9 @@ MIDIノートナンバーの **65〜85** が **F3〜C5** に対応していま�
 7. 音楽が鳴れば成功だよ
 
 `cap deploy:start`, `cap deploy:stop`, `cap deploy:restart`などを利用して、リモートからプロセスの管理をすることもできます。
+
+### OSCへ送信するデータの形式
+
+localhostの8000番にデータを送信します。
+
+リクエスト時は`/out, <hostname>, <path>`が、レスポンス時は`/in, <status code>, <content-type>, <content-length>`が送信されます。
