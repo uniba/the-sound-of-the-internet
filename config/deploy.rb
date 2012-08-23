@@ -28,12 +28,15 @@ role :db,  "house.local"
 namespace :deploy do
   task :start, :roles => :app do
     try_sudo "forever start #{current_path}/server/app.js"
+    try_sudo "forever -c ruby start #{current_path}/server/dns.rb"
   end
   task :stop, :roles => :app do
     try_sudo "forever stop #{current_path}/server/app.js"
+    try_sudo "forever stop #{current_path}/server/dns.rb"
   end
   task :restart, :roles => :app, :except => { :no_release => true } do
     try_sudo "forever restart #{current_path}/server/app.js"
+    try_sudo "forever restart #{current_path}/server/dns.rb"
   end
 end
 
