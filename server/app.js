@@ -23,10 +23,8 @@ app
   .use(function(cliReq, proxyRes, next) {
     var parsed = url.parse('http://' + cliReq.headers.host),
         options = {
-          //host: cliReq.headers.host,
-          //port: 80,
-          host: 'localhost',
-          port: 3000,
+          host: cliReq.headers.host,
+          port: 80,
           path: cliReq.url,
           method: 'GET'
         };
