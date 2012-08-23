@@ -15,7 +15,7 @@ set :node_env, 'production'
 set :node_port, 3000
 
 set :default_environment, {
-  'PATH' => "/usr/local/bin:$PATH"
+  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/bin:$PATH"
 }
 
 default_run_options[:pty] = true
@@ -28,7 +28,7 @@ role :db,  "house.local"
 namespace :deploy do
   task :start, :roles => :app do
     try_sudo "forever start #{current_path}/server/app.js"
-    try_sudo "forever -c /Users/nulltask/.rbenv/shims/ruby start #{current_path}/server/dns.rb"
+    try_sudo "forever -c ruby start #{current_path}/server/dns.rb"
   end
   task :stop, :roles => :app do
     try_sudo "forever stop #{current_path}/server/app.js"
