@@ -4,7 +4,8 @@ var http = require('http'),
     connect = require('connect'),
     osc = require('node-osc'),
     url = require('url'),
-    util = require('util');
+    util = require('util'),
+    colors = require('colors');
 
 // create osc client
 var client = new osc.Client('127.0.0.1', 8000);
@@ -55,4 +56,4 @@ app
   });
 
 http.createServer(app).listen(80);
-util.puts('Server start at port 80.');
+util.puts(('Server start at port 80.').red);
